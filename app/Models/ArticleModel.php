@@ -8,17 +8,19 @@ class ArticleModel extends Model
 {
     protected $table = "article";
 
-    protected $allowedFields = ['title', 'content'];
+    protected $allowedFields = ["title", "content"];
+
+    protected $returnType = \App\Entities\Article::class;
 
     protected $validationRules = [
-        'title'=> 'required|max_length[128]',
-        'content'=> 'required',
+        "title" => "required|max_length[128]",
+        "content" => "required"
     ];
 
     protected $validationMessages = [
-        'title'=> [
+        "title" => [
             "required" => "Please enter a title",
             "max_length" => "{param} maximum characters for the {field}"
-        ],
+        ]
     ];
 }

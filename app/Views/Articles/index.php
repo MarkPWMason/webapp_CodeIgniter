@@ -11,8 +11,8 @@
     <?php foreach ($articles as $article): ?>
 
         <article>
-            <h2><a href=" <?=site_url('/articles/' . $article["id"])?>"> <?= $article["title"] ?> </a></h2>
-            <p><?= $article["content"] ?></p>
+            <h2><a href="<?= site_url('/articles/' . $article->id) ?>"><?= esc($article->title) ?></a></h2>
+            <p><?= esc($article->content) ?></p>
         </article>
 
     <?php endforeach; ?>

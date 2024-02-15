@@ -1,10 +1,10 @@
 <?= $this->extend("layouts/default") ?>
 
-<?= $this->section("title") ?>New Article<?= $this->endSection() ?>
+<?= $this->section("title") ?>Edit Article<?= $this->endSection() ?>
 
 <?= $this->section("content") ?>
 
-<h1>New Article</h1>
+<h1>Edit Article</h1>
 
 <?php if (session()->has("errors")): ?>
 
@@ -16,7 +16,7 @@
 
 <?php endif; ?>
 
-<?= form_open("articles/create") ?>
+<?= form_open("articles/update/" . $article->id) ?>
 
 <?= $this->include("Articles/form") ?>
 
