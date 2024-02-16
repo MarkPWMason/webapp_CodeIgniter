@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\ArticleModel;
 use App\Entities\Article;
+use CodeIgniter\Exceptions\PageNotFoundException;
 
 class Articles extends BaseController
 {
@@ -27,7 +28,7 @@ class Articles extends BaseController
     public function show($id)
     {
 
-        $article = $this->model->find($id);
+        $article = $this->getArtricleOr404($id);
 
         return view("Articles/show", [
             "article" => $article
@@ -62,7 +63,7 @@ class Articles extends BaseController
 
     public function edit($id)
     {
-        $article = $this->model->find($id);
+        $article = $this->getArtricleOr404($id);
 
         return view("Articles/edit", [
             "article" => $article
@@ -72,7 +73,7 @@ class Articles extends BaseController
     public function update($id)
     {
 
-        $article = $this->model->find($id);
+        $article = $this->getArtricleOr404($id);
         $article->fill($this->request->getPost());
         // $article->title = $this->request->getPost("title");
         // $article->content = $this->request->getPost("content");
@@ -91,5 +92,30 @@ class Articles extends BaseController
         return redirect()->back()
                          ->with("errors", $this->model->errors())
                          ->withInput();
+    }
+
+    public function delete($id)
+    {
+        $article = $this->getArtricleOr404($id);
+
+        if($this->request->is("post")) {
+            $this->model->delete($id);
+
+            return redirect()->to("articles")->with("message", "Articles deleted.");
+        }
+
+        return view("Articles/delete", [
+            "article"=> $article
+        ]);
+    }
+
+    private function getArtricleOr404($id): Article{
+        $article = $this->model->find($id);
+
+        if ($article === null) {
+            throw new PageNotFoundException("Article with id $id not found ");
+        }
+
+        return $article;
     }
 }
