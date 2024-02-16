@@ -16,7 +16,7 @@
 
 <?php endif; ?>
 
-<?= form_open("articles/create") ?>
+<?= form_open("articles") ?>
 
 <?= $this->include("Articles/form") ?>
 

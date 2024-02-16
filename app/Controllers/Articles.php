@@ -75,6 +75,9 @@ class Articles extends BaseController
 
         $article = $this->getArtricleOr404($id);
         $article->fill($this->request->getPost());
+
+        $article->__unset("_method");
+        
         // $article->title = $this->request->getPost("title");
         // $article->content = $this->request->getPost("content");
         
@@ -94,19 +97,28 @@ class Articles extends BaseController
                          ->withInput();
     }
 
+    public function confirmDelete($id)
+    {
+        $article = $this->getArtricleOr404($id);
+
+        return view("Articles/delete", [
+            "article" => $article
+        ]);
+    }
+
     public function delete($id)
     {
         $article = $this->getArtricleOr404($id);
 
-        if($this->request->is("post")) {
+        // if($this->request->is("delete")) {
             $this->model->delete($id);
 
             return redirect()->to("articles")->with("message", "Articles deleted.");
-        }
+        // }
 
-        return view("Articles/delete", [
-            "article"=> $article
-        ]);
+        // return view("Articles/delete", [
+        //     "article"=> $article
+        // ]);
     }
 
     private function getArtricleOr404($id): Article{
