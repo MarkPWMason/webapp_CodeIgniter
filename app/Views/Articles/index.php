@@ -6,7 +6,7 @@
 
     <h1>Articles</h1>
 
-    <a href="<?= url_to("new_article") ?>">New</a>
+    <a href="<?= url_to("Articles::new") ?>">New</a>
 
     <?php foreach ($articles as $article): ?>
 
