@@ -14,7 +14,13 @@
     <dd><?= esc($user->first_name) ?></dd>
 
     <dt>Created</dt>
-    <dd><?= $user->created_at ?></dd>
+    <dd><?= $user->created_at->humanize() ?></dd>
 </dl>
+
+<?= form_open("admin/users/" . $user->id . "/toggle-ban") ?>
+
+<button><?= $user->isBanned() ? "Unban" : "Ban" ?></button>
+
+</form>
 
 <?= $this->endSection() ?>

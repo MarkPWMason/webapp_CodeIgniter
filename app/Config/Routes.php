@@ -37,14 +37,20 @@ $routes->get('/', 'Home::index');
 // $routes->get("articles/(:num)/edit", "Articles::edit/$1");
 // $routes->patch("articles/(:num)", "Articles::update/$1");
 // $routes->delete("articles/(:num)", "Articles::delete/$1");
-$routes->get("articles/(:num)/delete", "Articles::confirmDelete/$1");
 
-$routes->resource("articles", ["placeholder" => "(:num)"]);
 
 service('auth')->routes($routes);
 
-$routes->get("set-password", "Password::set");
-$routes->post("set-password", "Password::update");
+$routes->group("", ["filter" => "login"], static function ($routes){
+    $routes->get("set-password", "Password::set");
+    $routes->post("set-password", "Password::update");
+
+    $routes->get("articles/(:num)/delete", "Articles::confirmDelete/$1");
+
+    $routes->resource("articles", ["placeholder" => "(:num)"]);
+});
+
+
 
 /*
  * --------------------------------------------------------------------

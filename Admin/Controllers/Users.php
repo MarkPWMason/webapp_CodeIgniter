@@ -17,6 +17,8 @@ class Users extends BaseController
     
     public function index()
     {
+        helper("admin");    
+
         $users = $this->model->paginate(3);
 
         return view("Admin\Views\Users\index", [
@@ -34,6 +36,16 @@ class Users extends BaseController
         return view("Admin\Views\Users\show", [
             "user" => $user
         ]);
+    }
+
+    public function toggleBan($id){
+        $user = $this->getUserOr404($id);
+        if($user->isBanned()){
+            $user->unBan();
+        } else {
+            $user->ban();
+        }
+        return redirect()->back()->with("message","User saved.");
     }
 
     private function getUserOr404($id): User{

@@ -4,4 +4,6 @@
 <label for="content">Content</label>
 <textarea id="content" name="content"><?= old("content", esc($article->content)) ?></textarea>
 
+<input type="hidden" name="<?= csrf_token() ?>" value="some invalid token">
+
 <button>Save</button>

@@ -37,6 +37,10 @@ class Articles extends BaseController
 
     public function new()
     {
+        if( ! auth()->loggedIn()){
+            return redirect()->to("login")->with("message", "Please login first");
+        }
+
         return view("Articles/new", [
             "article" => new Article
         ]);
